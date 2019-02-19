@@ -1,0 +1,66 @@
+﻿<Window x:Class="arenda_14.ArendaEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:arenda_14"
+        mc:Ignorable="d"
+        Title="ArendaEditDialog" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:ARENDA_lastEntities x:Key="aRENDA_lastDataSet"/>
+        <CollectionViewSource x:Key="арендаViewSource" Source="{Binding Аренда, Source={StaticResource aRENDA_lastDataSet}}"/>
+        <CollectionViewSource x:Key="арендаViewSource1" d:DesignSource="{d:DesignInstance {x:Type local:Аренда}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid>
+        <Button Content="СОХРАНИТЬ РЕДАКТИРОВАНИЕ " HorizontalAlignment="Left" Height="35" Margin="454,282,0,0" VerticalAlignment="Top" Width="250" Click="Button_Click_1"/>
+        <Button Content="ОТМЕНИТЬ" HorizontalAlignment="Left" Height="35" Margin="454,345,0,0" VerticalAlignment="Top" Width="250" Click="Button_Click"/>
+        <Grid x:Name="grid1" DataContext="{StaticResource арендаViewSource1}" HorizontalAlignment="Left" Margin="31,37,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Дата Заключения Договора:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+            <DatePicker x:Name="датаЗаключенияДоговораDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="4" SelectedDate="{Binding ДатаЗаключенияДоговора, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+           
+            <Label Content="Дата Зачисления:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="7" VerticalAlignment="Center"/>
+            <DatePicker x:Name="датаЗачисленияDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="7" SelectedDate="{Binding ДатаЗачисления, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+           
+            <Label Content="Дата Окончания Договора:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
+            <DatePicker x:Name="датаОкончанияДоговораDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" SelectedDate="{Binding ДатаОкончанияДоговора, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+            
+            <Label Content="Договор:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+            <TextBox x:Name="договорTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="4" Grid.Row="3" Text="{Binding Договор, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+           
+            <Label Content="Код Организации:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBox x:Name="кодОрганизацииTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding КодОрганизации, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+            
+            <Label Content="Код Торгового Места:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+            <TextBox x:Name="кодТорговогоМестаTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding КодТорговогоМеста, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+            
+            <Label Content="Код Учёта Аренды:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="кодУчётаАрендыTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding КодУчётаАренды, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+           
+            <Label Content="Оплата По Договору:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="8" VerticalAlignment="Center"/>
+            <DatePicker x:Name="оплатаПоДоговоруDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="8" SelectedDate="{Binding ОплатаПоДоговору, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+           
+            <Label Content="Оплачено:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="6" VerticalAlignment="Center"/>
+            <CheckBox x:Name="оплаченоCheckBox" Content="" Grid.Column="1" HorizontalAlignment="Left" IsChecked="{Binding Оплачено, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="3" Grid.Row="6" VerticalAlignment="Center"/>
+           
+            <Label Content="Сумма Оплаты:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="9" VerticalAlignment="Center"/>
+            <TextBox x:Name="суммаОплатыTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="9" Text="{Binding СуммаОплаты, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+        </Grid>
+
+    </Grid>
+</Window>

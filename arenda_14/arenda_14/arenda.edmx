@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ARENDA_lastModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Аренда">
+          <Key>
+            <PropertyRef Name="КодУчётаАренды" />
+          </Key>
+          <Property Name="КодУчётаАренды" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="КодОрганизации" Type="int" Nullable="false" />
+          <Property Name="КодТорговогоМеста" Type="int" Nullable="false" />
+          <Property Name="Договор" Type="nvarchar" MaxLength="15" />
+          <Property Name="ДатаЗаключенияДоговора" Type="datetime2" Precision="0" />
+          <Property Name="ДатаОкончанияДоговора" Type="datetime2" Precision="0" />
+          <Property Name="Оплачено" Type="bit" />
+          <Property Name="ДатаЗачисления" Type="datetime2" Precision="0" />
+          <Property Name="ОплатаПоДоговору" Type="datetime2" Precision="0" />
+          <Property Name="СуммаОплаты" Type="real" />
+          <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Организации">
+          <Key>
+            <PropertyRef Name="КодОрганизации" />
+          </Key>
+          <Property Name="КодОрганизации" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Организация" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ОрганизацияКратко" Type="nvarchar" MaxLength="255" />
+          <Property Name="УНП" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="БИКБанка" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Банк" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="РасчётныйСчёт" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="ПочтовыйИндекс" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Город" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Адрес" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Телефон" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ПочтовыйЯщик" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ТорговыеМеста">
+          <Key>
+            <PropertyRef Name="КодТорговогоМеста" />
+          </Key>
+          <Property Name="КодТорговогоМеста" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НомерТорговогоМеста" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Этаж" Type="smallint" Nullable="false" />
+          <Property Name="Площадь" Type="real" Nullable="false" />
+          <Property Name="ЕдИзм" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Ставка" Type="real" Nullable="false" />
+          <Property Name="ЕдИзм_" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Арендовано" Type="bit" />
+          <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <Association Name="Аренда$ОрганизацииУчёт аренды">
+          <End Role="Организации" Type="Self.Организации" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Аренда" Type="Self.Аренда" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Организации">
+              <PropertyRef Name="КодОрганизации" />
+            </Principal>
+            <Dependent Role="Аренда">
+              <PropertyRef Name="КодОрганизации" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Аренда$Торговые местаУчёт аренды">
+          <End Role="ТорговыеМеста" Type="Self.ТорговыеМеста" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Аренда" Type="Self.Аренда" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТорговыеМеста">
+              <PropertyRef Name="КодТорговогоМеста" />
+            </Principal>
+            <Dependent Role="Аренда">
+              <PropertyRef Name="КодТорговогоМеста" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ARENDA_lastModelStoreContainer">
+          <EntitySet Name="Аренда" EntityType="Self.Аренда" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Организации" EntityType="Self.Организации" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ТорговыеМеста" EntityType="Self.ТорговыеМеста" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Аренда$ОрганизацииУчёт аренды" Association="Self.Аренда$ОрганизацииУчёт аренды">
+            <End Role="Организации" EntitySet="Организации" />
+            <End Role="Аренда" EntitySet="Аренда" />
+          </AssociationSet>
+          <AssociationSet Name="Аренда$Торговые местаУчёт аренды" Association="Self.Аренда$Торговые местаУчёт аренды">
+            <End Role="ТорговыеМеста" EntitySet="ТорговыеМеста" />
+            <End Role="Аренда" EntitySet="Аренда" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ARENDA_lastModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Аренда">
+          <Key>
+            <PropertyRef Name="КодУчётаАренды" />
+          </Key>
+          <Property Name="КодУчётаАренды" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="КодОрганизации" Type="Int32" Nullable="false" />
+          <Property Name="КодТорговогоМеста" Type="Int32" Nullable="false" />
+          <Property Name="Договор" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ДатаЗаключенияДоговора" Type="DateTime" Precision="0" />
+          <Property Name="ДатаОкончанияДоговора" Type="DateTime" Precision="0" />
+          <Property Name="Оплачено" Type="Boolean" />
+          <Property Name="ДатаЗачисления" Type="DateTime" Precision="0" />
+          <Property Name="ОплатаПоДоговору" Type="DateTime" Precision="0" />
+          <Property Name="СуммаОплаты" Type="Single" />
+          <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Организации" Relationship="Self.Аренда_ОрганизацииУчёт_аренды" FromRole="Аренда" ToRole="Организации" />
+          <NavigationProperty Name="ТорговыеМеста" Relationship="Self.Аренда_Торговые_местаУчёт_аренды" FromRole="Аренда" ToRole="ТорговыеМеста" />
+        </EntityType>
+        <EntityType Name="Организации">
+          <Key>
+            <PropertyRef Name="КодОрганизации" />
+          </Key>
+          <Property Name="КодОрганизации" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Организация" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ОрганизацияКратко" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="УНП" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="БИКБанка" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Банк" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="РасчётныйСчёт" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ПочтовыйИндекс" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Город" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Адрес" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Телефон" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ПочтовыйЯщик" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Аренда" Relationship="Self.Аренда_ОрганизацииУчёт_аренды" FromRole="Организации" ToRole="Аренда" />
+        </EntityType>
+        <EntityType Name="ТорговыеМеста">
+          <Key>
+            <PropertyRef Name="КодТорговогоМеста" />
+          </Key>
+          <Property Name="КодТорговогоМеста" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НомерТорговогоМеста" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Этаж" Type="Int16" Nullable="false" />
+          <Property Name="Площадь" Type="Single" Nullable="false" />
+          <Property Name="ЕдИзм" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ставка" Type="Single" Nullable="false" />
+          <Property Name="ЕдИзм_" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Арендовано" Type="Boolean" />
+          <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Аренда" Relationship="Self.Аренда_Торговые_местаУчёт_аренды" FromRole="ТорговыеМеста" ToRole="Аренда" />
+        </EntityType>
+        <Association Name="Аренда_ОрганизацииУчёт_аренды">
+          <End Role="Организации" Type="Self.Организации" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Аренда" Type="Self.Аренда" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Организации">
+              <PropertyRef Name="КодОрганизации" />
+            </Principal>
+            <Dependent Role="Аренда">
+              <PropertyRef Name="КодОрганизации" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Аренда_Торговые_местаУчёт_аренды">
+          <End Role="ТорговыеМеста" Type="Self.ТорговыеМеста" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Аренда" Type="Self.Аренда" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТорговыеМеста">
+              <PropertyRef Name="КодТорговогоМеста" />
+            </Principal>
+            <Dependent Role="Аренда">
+              <PropertyRef Name="КодТорговогоМеста" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ARENDA_lastEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Аренда" EntityType="Self.Аренда" />
+          <EntitySet Name="Организации" EntityType="Self.Организации" />
+          <EntitySet Name="ТорговыеМеста" EntityType="Self.ТорговыеМеста" />
+          <AssociationSet Name="Аренда_ОрганизацииУчёт_аренды" Association="Self.Аренда_ОрганизацииУчёт_аренды">
+            <End Role="Организации" EntitySet="Организации" />
+            <End Role="Аренда" EntitySet="Аренда" />
+          </AssociationSet>
+          <AssociationSet Name="Аренда_Торговые_местаУчёт_аренды" Association="Self.Аренда_Торговые_местаУчёт_аренды">
+            <End Role="ТорговыеМеста" EntitySet="ТорговыеМеста" />
+            <End Role="Аренда" EntitySet="Аренда" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ARENDA_lastModelStoreContainer" CdmEntityContainer="ARENDA_lastEntities">
+          <EntitySetMapping Name="Аренда">
+            <EntityTypeMapping TypeName="ARENDA_lastModel.Аренда">
+              <MappingFragment StoreEntitySet="Аренда">
+                <ScalarProperty Name="КодУчётаАренды" ColumnName="КодУчётаАренды" />
+                <ScalarProperty Name="КодОрганизации" ColumnName="КодОрганизации" />
+                <ScalarProperty Name="КодТорговогоМеста" ColumnName="КодТорговогоМеста" />
+                <ScalarProperty Name="Договор" ColumnName="Договор" />
+                <ScalarProperty Name="ДатаЗаключенияДоговора" ColumnName="ДатаЗаключенияДоговора" />
+                <ScalarProperty Name="ДатаОкончанияДоговора" ColumnName="ДатаОкончанияДоговора" />
+                <ScalarProperty Name="Оплачено" ColumnName="Оплачено" />
+                <ScalarProperty Name="ДатаЗачисления" ColumnName="ДатаЗачисления" />
+                <ScalarProperty Name="ОплатаПоДоговору" ColumnName="ОплатаПоДоговору" />
+                <ScalarProperty Name="СуммаОплаты" ColumnName="СуммаОплаты" />
+                <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Организации">
+            <EntityTypeMapping TypeName="ARENDA_lastModel.Организации">
+              <MappingFragment StoreEntitySet="Организации">
+                <ScalarProperty Name="КодОрганизации" ColumnName="КодОрганизации" />
+                <ScalarProperty Name="Организация" ColumnName="Организация" />
+                <ScalarProperty Name="ОрганизацияКратко" ColumnName="ОрганизацияКратко" />
+                <ScalarProperty Name="УНП" ColumnName="УНП" />
+                <ScalarProperty Name="БИКБанка" ColumnName="БИКБанка" />
+                <ScalarProperty Name="Банк" ColumnName="Банк" />
+                <ScalarProperty Name="РасчётныйСчёт" ColumnName="РасчётныйСчёт" />
+                <ScalarProperty Name="ПочтовыйИндекс" ColumnName="ПочтовыйИндекс" />
+                <ScalarProperty Name="Город" ColumnName="Город" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+                <ScalarProperty Name="ПочтовыйЯщик" ColumnName="ПочтовыйЯщик" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ТорговыеМеста">
+            <EntityTypeMapping TypeName="ARENDA_lastModel.ТорговыеМеста">
+              <MappingFragment StoreEntitySet="ТорговыеМеста">
+                <ScalarProperty Name="КодТорговогоМеста" ColumnName="КодТорговогоМеста" />
+                <ScalarProperty Name="НомерТорговогоМеста" ColumnName="НомерТорговогоМеста" />
+                <ScalarProperty Name="Этаж" ColumnName="Этаж" />
+                <ScalarProperty Name="Площадь" ColumnName="Площадь" />
+                <ScalarProperty Name="ЕдИзм" ColumnName="ЕдИзм" />
+                <ScalarProperty Name="Ставка" ColumnName="Ставка" />
+                <ScalarProperty Name="ЕдИзм_" ColumnName="ЕдИзм_" />
+                <ScalarProperty Name="Арендовано" ColumnName="Арендовано" />
+                <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

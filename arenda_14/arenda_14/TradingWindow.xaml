@@ -1,0 +1,32 @@
+﻿<Window x:Class="arenda_14.TradingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:arenda_14"
+        mc:Ignorable="d"
+        Title="TradingWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="торговыеМестаViewSource" d:DesignSource="{d:DesignInstance {x:Type local:ТорговыеМеста}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource торговыеМестаViewSource}">
+        <DataGrid x:Name="торговыеМестаDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="89,71,88,148" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="кодТорговогоМестаColumn" Binding="{Binding КодТорговогоМеста}" Header="Код Торгового Места" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="номерТорговогоМестаColumn" Binding="{Binding НомерТорговогоМеста}" Header="Номер Торгового Места" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="этажColumn" Binding="{Binding Этаж}" Header="Этаж" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="площадьColumn" Binding="{Binding Площадь}" Header="Площадь" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="едИзмColumn" Binding="{Binding ЕдИзм}" Header="Ед Изм" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="ставкаColumn" Binding="{Binding Ставка}" Header="Ставка" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="едИзм_Column" Binding="{Binding ЕдИзм_}" Header="Ед Изм" Width="SizeToHeader"/>
+                <DataGridCheckBoxColumn x:Name="арендованоColumn" Binding="{Binding Арендовано}" Header="Арендовано" Width="SizeToHeader"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="ДОБАВИТЬ" HorizontalAlignment="Left" Height="51" Margin="89,301,0,0" VerticalAlignment="Top" Width="180" Click="Button_Click"/>
+        <Button Content="РЕДАКТИРОВАТЬ" HorizontalAlignment="Left" Height="51" Margin="312,301,0,0" VerticalAlignment="Top" Width="180" Click="Button_Click_2"/>
+        <Button Content="УДАЛИТЬ" HorizontalAlignment="Left" Height="51" Margin="524,301,0,0" VerticalAlignment="Top" Width="180" Click="Button_Click_1"/>
+        <Label Content="Справочник: Договора" HorizontalAlignment="Left" Height="38" Margin="108,10,0,0" VerticalAlignment="Top" Width="266" FontWeight="Bold" FontSize="18" FontStyle="Italic"/>
+
+    </Grid>
+</Window>

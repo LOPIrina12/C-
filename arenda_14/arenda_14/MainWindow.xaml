@@ -1,0 +1,17 @@
+﻿<Window x:Class="arenda_14.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:arenda_14"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button Content="ОРГАНИЗАЦИИ" HorizontalAlignment="Left" Height="76" Margin="207,136,0,0" VerticalAlignment="Top" Width="386" Click="Button_Click_2"/>
+        <Button Content="ТОРГОВЫЕ МЕСТА" HorizontalAlignment="Left" Height="76" Margin="207,215,0,0" VerticalAlignment="Top" Width="386" Click="Button_Click_1"/>
+        <Button Content="АРЕНДА" HorizontalAlignment="Left" Height="76" Margin="207,295,0,0" VerticalAlignment="Top" Width="386" Click="Button_Click"/>
+        <Label Content="Вы начинаете работу с базой данных:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,23,0,0" Width="219"/>
+        <Label Content="Сдача в аренду недвижимого имущества" HorizontalAlignment="Left" Height="49" Margin="32,54,0,0" VerticalAlignment="Top" Width="734" FontSize="20" FontWeight="Bold" FontStyle="Italic"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,68 @@
+﻿<Window x:Class="arenda_14.ArendaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:arenda_14"
+        mc:Ignorable="d"
+        Title="ArendaWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+
+
+        <CollectionViewSource x:Key="арендаViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Аренда}, CreateList=True}"/>
+
+
+    </Window.Resources>
+    <Grid DataContext="{StaticResource арендаViewSource}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="83*"/>
+            <ColumnDefinition Width="181*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="ДОБАВИТЬ" HorizontalAlignment="Left" Height="51" Margin="30,344,0,0" VerticalAlignment="Top" Width="230" Grid.ColumnSpan="3" Click="Button_Click_1"/>
+        <Button Content="УДАЛИТЬ" HorizontalAlignment="Left" Height="51" Margin="35,344,0,0" VerticalAlignment="Top" Width="230" Click="Button_Click" Grid.Column="2"/>
+        <Button Content="РЕДАКТИРОВАТЬ" HorizontalAlignment="Left" Height="51" Margin="287,344,0,0" VerticalAlignment="Top" Width="230" Grid.Column="2" Click="Button_Click_2"/>
+        <DataGrid x:Name="арендаDataGrid" AutoGenerateColumns="False" Grid.ColumnSpan="3" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="46,94,47,125" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="кодУчётаАрендыColumn" Binding="{Binding КодУчётаАренды}" Header="Код Учёта Аренды" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="кодОрганизацииColumn" Binding="{Binding КодОрганизации}" Header="Код Организации" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="кодТорговогоМестаColumn" Binding="{Binding КодТорговогоМеста}" Header="Код Торгового Места" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="договорColumn" Binding="{Binding Договор}" Header="Договор" Width="SizeToHeader"/>
+                <DataGridTemplateColumn x:Name="датаЗаключенияДоговораColumn" Header="Дата Заключения Договора" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding ДатаЗаключенияДоговора, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn x:Name="датаОкончанияДоговораColumn" Header="Дата Окончания Договора" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding ДатаОкончанияДоговора, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="датаЗачисленияColumn" Header="Дата Зачисления" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding ДатаЗачисления, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn x:Name="оплатаПоДоговоруColumn" Header="Оплата По Договору" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding ОплатаПоДоговору, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridCheckBoxColumn x:Name="оплаченоColumn" Binding="{Binding Оплачено}" Header="Оплачено" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="суммаОплатыColumn" Binding="{Binding СуммаОплаты}" Header="Сумма Оплаты" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Grid.ColumnSpan="3" Content="Журнал учёта аренды" HorizontalAlignment="Left" Height="35" Margin="54,24,0,0" VerticalAlignment="Top" Width="260" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+
+    </Grid>
+</Window>

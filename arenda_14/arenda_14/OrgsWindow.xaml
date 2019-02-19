@@ -1,0 +1,39 @@
+﻿<Window x:Class="arenda_14.OrgsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:arenda_14"
+        mc:Ignorable="d"
+        Title="OrgsWindow" Height="450" Width="800" Loaded="Window_Loaded_1">
+    <Window.Resources>
+        <CollectionViewSource x:Key="организацииViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Организации}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource организацииViewSource}">
+        <Label Content="Справочник: Организации" HorizontalAlignment="Left" Height="43" Margin="36,26,0,0" VerticalAlignment="Top" Width="405" FontStyle="Italic" FontWeight="Bold" FontSize="18"/>
+        <DataGrid x:Name="организацииDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="43,77,36,142" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="кодОрганизацииColumn" Binding="{Binding КодОрганизации}" Header="Код Организации" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="организацияColumn" Binding="{Binding Организация}" Header="Организация" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="организацияКраткоColumn" Binding="{Binding ОрганизацияКратко}" Header="Организация Кратко" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="уНПColumn" Binding="{Binding УНП}" Header="УНП" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="бИКБанкаColumn" Binding="{Binding БИКБанка}" Header="БИКБанка" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="банкColumn" Binding="{Binding Банк}" Header="Банк" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="расчётныйСчётColumn" Binding="{Binding РасчётныйСчёт}" Header="Расчётный Счёт" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="почтовыйИндексColumn" Binding="{Binding ПочтовыйИндекс}" Header="Почтовый Индекс" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="городColumn" Binding="{Binding Город}" Header="Город" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="адресColumn" Binding="{Binding Адрес}" Header="Адрес" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="почтовыйЯщикColumn" Binding="{Binding ПочтовыйЯщик}" Header="Почтовый Ящик" Width="SizeToHeader"/>
+                
+                <DataGridTextColumn x:Name="телефонColumn" Binding="{Binding Телефон}" Header="Телефон" Width="SizeToHeader"/>
+                
+                
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="ДОБАВИТЬ" HorizontalAlignment="Left" Margin="47,331,0,0" VerticalAlignment="Top" Width="180
+                " Height="51" Click="Button_Click"/>
+        <Button Content="РЕДАКТИРОВАТЬ" HorizontalAlignment="Left" Margin="308,331,0,0" VerticalAlignment="Top" Width="180                 " Height="51" Click="Button_Click_2"/>
+        <Button Content="УДАЛИТЬ" HorizontalAlignment="Left" Margin="576,331,0,0" VerticalAlignment="Top" Width="180                 " Height="51" Click="Button_Click_1"/>
+
+    </Grid>
+</Window>
